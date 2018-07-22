@@ -1,0 +1,15 @@
+---
+# file: roles/oraclejdk8/tasks/setup-RedHat.yml
+
+# install OracleJDK8
+- name: download OracleJDK8
+  get_url:
+    url: "{{ site_url }}/jdk-{{ jdk_version }}-linux-x64.rpm"
+    dest: "/tmp/jdk-{{ jdk_version }}-linux-x64.rpm"
+    mode: 0644
+    validate_certs: no
+    headers:
+      Cookie: oraclelicense=accept-securebackup-cookie
+
+- name: be sure OracleJDK8 is installed on CentOS
+  yum: name="/tmp/jdk-{{ jdk_version }}-linux-x64.rpm" state=present
